@@ -16,40 +16,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake make gcc-arm-none-eabi libnewlib-arm-none-eabi unzip tar
 
-      - name: Extract MicroPython source
-        run: |
-          if [ -f micropython-1.26.zip ]; then
-            echo "Unzipping your ZIP archive"
-            unzip micropython-1.26.zip -d micropython-src
-          elif [ -f micropython-1.26.0.tar.gz ]; then
-            echo "Extracting your TAR.GZ archive"
-            mkdir micropython-src
-            tar -xzf micropython-1.26.0.tar.gz -C micropython-src
-          else
-            echo "❌ No source archive (zip/tar.gz) found in repo!"
-            exit 1
-          fi
-
-      - name: Setup Pico SDK
-        run: |
-          cd micropython-src/micropython-1.26.0
-          git submodule update --init --recursive
-          git clone --depth=1 https://github.com/raspberrypi/pico-sdk.git
-          echo "PICO_SDK_PATH=$GITHUB_WORKSPACE/micropython-src/micropython-1.26.0/pico-sdk" >> $GITHUB_ENV
-
-      - name: Build mpy-cross
-        run: |
-          cd micropython-src/micropython-1.26.0/mpy-cross
-          make
-
       - name: Build MicroPython for Pico
         run: |
-          cd micropython-src/micropython-1.26.0/ports/rp2
-          make BOARD=PICO submodules
-          make BOARD=PICO
+          curl -LO https://micropython.org/download/rp2-pico/rp2-pico-v1.26.0.uf2
 
       - name: Upload UF2 Artifact
         uses: actions/upload-artifact@v4
         with:
           name: micropython-pico-uf2
-          path: micropython-src/micropython-1.26.0/ports/rp2/build-PICO/firmware.uf2
+          path: rp2-pico-v1.26.0.uf2
