@@ -14,7 +14,6 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake make gcc-arm-none-eabi libnewlib-arm-none-eabi unzip tar
 
       - name: Build MicroPython for Pico
         run: |
