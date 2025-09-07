@@ -18,9 +18,9 @@ jobs:
 
       - name: Extract MicroPython source
         run: |
-          if [ -f micropython-1.26.0.zip ]; then
+          if [ -f micropython-1.26.zip ]; then
             echo "Unzipping your ZIP archive"
-            unzip micropython-1.26.0.zip -d micropython-src
+            unzip micropython-1.26.zip -d micropython-src
           elif [ -f micropython-1.26.0.tar.gz ]; then
             echo "Extracting your TAR.GZ archive"
             mkdir micropython-src
