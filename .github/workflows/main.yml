@@ -18,15 +18,15 @@ jobs:
 
       - name: Extract MicroPython source
         run: |
-          if [ -f micropython-1.26.0-patched.zip ]; then
-            echo "Unzipping ZIP archive"
-            unzip micropython-1.26.0-patched.zip -d micropython-src
+          if [ -f micropython-1.26.0.zip ]; then
+            echo "Unzipping your ZIP archive"
+            unzip micropython-1.26.0.zip -d micropython-src
           elif [ -f micropython-1.26.0.tar.gz ]; then
-            echo "Extracting TAR.GZ archive"
+            echo "Extracting your TAR.GZ archive"
             mkdir micropython-src
             tar -xzf micropython-1.26.0.tar.gz -C micropython-src
           else
-            echo "❌ No source archive found!"
+            echo "❌ No source archive (zip/tar.gz) found in repo!"
             exit 1
           fi
 
@@ -49,7 +49,7 @@ jobs:
           make BOARD=PICO
 
       - name: Upload UF2 Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v5
         with:
           name: micropython-pico-uf2
           path: micropython-src/micropython-1.26.0/ports/rp2/build-PICO/firmware.uf2
