@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -49,7 +49,7 @@ jobs:
           make BOARD=PICO
 
       - name: Upload UF2 Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v4
         with:
           name: micropython-pico-uf2
           path: micropython-src/micropython-1.26.0/ports/rp2/build-PICO/firmware.uf2
